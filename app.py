@@ -1,20 +1,21 @@
+from flask import Flask, request
 import sqlite3
 
-def get_user_data(username):
-    # Connect to a dummy database
-    conn = sqlite3.connect('users.db')
+app = Flask(__name__)
+
+@app.route("/user")
+def get_user():
+    # SOURCE: Untrusted user input from an HTTP query parameter (?username=...)
+    username = request.args.get("username")
+
+    conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
 
-    # VULNERABILITY (SQL Injection):
-    # Raw user input is formatted directly into the SQL query string
-    # without parameterized queries or sanitization.
+    # SINK: Untrusted data concatenated directly into SQL execution without sanitization
     query = f"SELECT * FROM users WHERE username = '{username}'"
-    
-    print(f"Executing: {query}")
     cursor.execute(query)
-    return cursor.fetchall()
+
+    return f"Query executed: {query}"
 
 if __name__ == "__main__":
-    # Simulate untrusted user input
-    user_input = "admin' OR '1'='1"
-    get_user_data(user_input)
+    app.run(port=5000)

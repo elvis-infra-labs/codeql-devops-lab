@@ -1,5 +1,6 @@
 from flask import Flask, request
 import sqlite3
+import os
 
 app = Flask(__name__)
 
@@ -16,6 +17,13 @@ def get_user():
     cursor.execute(query)
 
     return f"Query executed: {query}"
+
+@app.route("/ping")
+def ping():
+    # NEW VULNERABILITY: Command Injection (CWE-78)
+    host = request.args.get("host")
+    os.system("ping -c 1 " + host)
+    return f"Pinged {host}"
 
 if __name__ == "__main__":
     app.run(port=5000)

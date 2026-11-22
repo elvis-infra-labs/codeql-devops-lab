@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/user")
 def get_user():
-    # SOURCE: Untrusted user input from an HTTP query parameter (?username=...)
+      # SOURCE: Untrusted user input from an HTTP query parameter (?username=...)
     username = request.args.get("username")
 
     conn = sqlite3.connect("users.db")

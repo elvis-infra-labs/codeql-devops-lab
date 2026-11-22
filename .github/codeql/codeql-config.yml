@@ -6,7 +6,7 @@ queries:
 
 # 2. Paths to scan (Include only actual production source code)
 paths:
-  - app.py
+  - .
 
 # 3. Paths to IGNORE (Never waste CI runner minutes scanning test mocks or vendor libs)
 paths-ignore:

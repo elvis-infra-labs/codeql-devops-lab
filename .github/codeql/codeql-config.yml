@@ -1,0 +1,19 @@
+name: "DevOps Custom CodeQL Config"
+
+# 1. Choose the query suite
+queries:
+  - uses: security-extended
+
+# 2. Paths to scan (Include only actual production source code)
+paths:
+  - src
+  - app.py
+
+# 3. Paths to IGNORE (Never waste CI runner minutes scanning test mocks or vendor libs)
+paths-ignore:
+  - tests/**
+  - test/**
+  - "**/*.test.py"
+  - vendor/**
+  - node_modules/**
+  - docs/**

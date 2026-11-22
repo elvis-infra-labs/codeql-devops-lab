@@ -4,11 +4,11 @@ name: "DevOps Custom CodeQL Config"
 queries:
   - uses: security-extended
 
-# 2. Paths to scan (Include only actual production source code)
+# 2. Paths to scan (Must be folders, use "." for repo root)
 paths:
-  - app.py
+  - .
 
-# 3. Paths to IGNORE (Never waste CI runner minutes scanning test mocks or vendor libs)
+# 3. Paths to IGNORE (Fine even if folders don't exist yet)
 paths-ignore:
   - tests/**
   - test/**
